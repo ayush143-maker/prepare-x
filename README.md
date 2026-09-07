@@ -13,9 +13,9 @@
 [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
 
 [![Status](https://img.shields.io/badge/Status-LIVE-brightgreen?style=flat-square&logo=vercel&logoColor=white)](#)
-[![Questions](https://img.shields.io/badge/Questions-600%2B-blueviolet?style=flat-square)](#-the-arsenal)
-[![Real Papers](https://img.shields.io/badge/Real%20Shift%20Papers-12-orange?style=flat-square)](#-the-arsenal)
-[![AI Tokens](https://img.shields.io/badge/AI%20Tokens-3.8M%2B-ff69b4?style=flat-square)](#-insights--the-story)
+[![Questions](https://img.shields.io/badge/Questions-1200%2B-blueviolet?style=flat-square)](#-the-arsenal)
+[![PYQ](https://img.shields.io/badge/Real%20Shift%20PYQ-600-orange?style=flat-square)](#-the-arsenal)
+[![Practice](https://img.shields.io/badge/Practice%20Bank-600-0ea5e9?style=flat-square)](#-the-arsenal)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](#-license)
 
 </div>
@@ -23,7 +23,7 @@
 <br>
 
 > 🔥 **No signup. No fees. Sirf practice.**
-> Timed quizzes • Real PYQ shift papers • Negative marking • Topic-wise analytics • Exam ka pressure, browser me.
+> 1200+ questions • 600 real-shift PYQs • 600 practice questions • +5/−1 marking • Topic-wise analytics • Exam ka pressure, browser me.
 
 ---
 
@@ -46,8 +46,8 @@ npm run dev
 | Feature | Kya karta hai |
 |---|---|
 | ⏱️ **Exam Timer** | Real exam wala countdown, auto-submit ke saath |
-| 📄 **PYQ Mode** | Real shift papers, paper-wise attempt |
-| 🎲 **Practice Mode** | Subject + topic + difficulty filters ke saath custom quiz |
+| 📄 **PYQ Mode** | 600 real shift-paper questions, paper-wise attempt |
+| 🎲 **Practice Mode** | 600 curated hard questions + subject/topic/difficulty filters |
 | ❌ **Negative Marking** | +5 / −1 — bilkul CUET wala drama |
 | 📊 **Analytics Dashboard** | Accuracy, weak topics, attempt history |
 | 🧭 **Mark for Review** | Real exam jaisi navigation palette |
@@ -56,19 +56,20 @@ npm run dev
 
 ---
 
-## 📚 The Arsenal
+## 📚 The Arsenal (1200+ Questions)
 
-| Subject | 2025 | 2026 | Total | Source |
-|---|:---:|:---:|:---:|---|
-|  English | 50 | 50 | **100** | Real shift PDFs (4 shifts) |
-| ⚛️ Physics | 50 | 50 | **100** | Real shift PDFs + hard top-ups |
-| 🧪 Chemistry | 50 | 50 | **100** | Real shift PDFs (3 sets) |
-| 📐 Mathematics | 50 | 50 | **100** | Real shift PDFs (2 sets) |
-| 🧬 Biology | 50 | 50 | **100** | Real shift PDFs (3 sets) |
-| 🧠 General Test | 50 | 50 | **100** | Original CUET-pattern (hard) |
-| **TOTAL** | **300** | **300** | **600** | ⚡ |
+| Subject | PYQ (Real Shifts) | Practice Bank | Total |
+|---|:---:|:---:|:---:|
+| 🇬 English | 100 | 100 | **200** |
+| ⚛️ Physics | 100 | 100 | **200** |
+| 🧪 Chemistry | 100 | 100 | **200** |
+| 📐 Mathematics | 100 | 100 | **200** |
+| 🧬 Biology | 100 | 100 | **200** |
+| 🧠 General Test | 100 | 100 | **200** |
+| **TOTAL** | **600** | **600** | **1200** |
 
-> 💡 Har RC passage sirf **ek baar** store hota hai (`passageId` system) — questions usko reference karte hain. Isliye packs halki hain aur fast load hoti hain.
+> 💡 **PYQ** = real shift papers se extracted (RC passages sirf ek baar store hote hain — `passageId` system).
+> **Practice** = curated hard-level bank jo weak areas ko target karta hai.
 
 ---
 
@@ -92,13 +93,8 @@ prepare-x/
 │   ├── store/              # Zustand — live quiz state
 │   └── types/              # Question, PyqPaper, QuizConfig
 └── data/
-    └── pyq/packs/          # ⭐ THE ARSENAL — ek JSON pack per subject
-        ├── english-pack.json
-        ├── physics-pack.json
-        ├── chemistry-pack.json
-        ├── maths-pack.json
-        ├── biology-pack.json
-        └── gat-pack.json
+    ├── questions/          # Practice bank (600) — subject-wise JSON
+    └── pyq/packs/          # ⭐ THE ARSENAL — PYQ packs (600), ek JSON per subject
 ```
 
 </details>
@@ -111,17 +107,30 @@ prepare-x/
 
 > Ye project **AI pair-programming** ka experiment tha — aur ye seekha:
 
-- 🤖 **~3.8M tokens** lage (input + output) — 6 subjects ka content, UI, debugging sab milake.
-- 🧩 **Multi-agent workflow:** ek AI ne 600+ questions + explanations banaye, dusre ne TypeScript wiring theek ki. Dono ki apni jagah hai.
+- 🤖 **~3.8M tokens** lage (input + output) — 1200 questions ka content, UI, debugging sab milake.
+- 🧩 **Multi-agent workflow:** ek AI ne questions + explanations banaye, dusre ne TypeScript wiring theek ki. Dono ki apni jagah hai.
 - 📄 **PDF → JSON pipeline:** real shift PDFs se RC passages + MCQs extract karke structured packs me convert kiya — passage dedup ke saath.
 - 🧠 **Context is king:** AI ko adhoora context doge to wo guess karega (aur guess = build error 😅). Poora context = clean code.
 - ⚠️ **Append-style edits JSON tod dete hain.** Comma miss = Vercel red. Isliye packs me hamesha full-file replace karo.
 
 ---
 
+## 👥 Users Visited
+
+<!-- 🔢 DAILY COUNTER EDIT: roz badge URL me aur alt text me "692" ko +1/+2 karo (693, 694, 695...) -->
+<div align="center">
+
+![Users Visited](https://img.shields.io/badge/👥_Users_Visited-692-6366f1?style=for-the-badge&logo=googleanalytics&logoColor=white)
+
+<sub>Hand-counted with ❤️ — daily +1 / +2</sub>
+
+</div>
+
+---
+
 ## 🗺️ Roadmap
 
-- [x] 600+ question bank (6 subjects)
+- [x] 1200+ question bank (600 PYQ + 600 Practice)
 - [x] 12 real shift papers (2025 sets)
 - [x] Animated UI (moving grid, aurora, spotlight)
 - [ ] 2026 paper drops (PDFs queue me hain)
@@ -155,8 +164,6 @@ MIT — jo karna hai karo, bas credit de dena. ❤️
 
 <sub>Pair-programmed with AI • 3.8M tokens • 0 regrets</sub>
 
-[![Star History](https://api.star-history.com/svg?repos=ayush143-maker/prepare-x&type=Date)](https://star-history.com/#ayush143-maker/prepare-x&Date)
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=6366f1:e879f9:22d3ee&height=120&section=footer&text=Practice%20Hard,%20Score%20Harder&fontAlignY=65"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=6366f1,e879f9,22d3ee&height=120&section=footer&text=Practice%20Hard%20•%20Score%20Harder&fontAlign=center&fontAlignY=55&fontColor=ffffff&fontSize=26" alt="Practice Hard • Score Harder"/>
 
 </div>
