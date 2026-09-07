@@ -30,12 +30,13 @@ export function StartPaperButton({
       topics: [],
       difficulty: "mixed",
       year: paper.year,
-      questionCount: paper.totalQuestions,
+      questionCount: paper.totalQuestions || 50,
       timeLimitSeconds: paper.durationMinutes * 60,
       shuffleQuestions: true,
       shuffleOptions: false,
       showExplanationAfterSubmit: true,
       showExplanationInstantly: false,
+      paperId: paper.id,
     };
 
     startQuiz(config);
