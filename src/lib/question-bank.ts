@@ -1,4 +1,5 @@
-import type { Question, QuestionSource } from "@/types/question";
+import type { Question, QuestionSource, ExamSection } from "@/types/question";
+import type { PyqPaper } from "@/types/cuet";
 import type { DifficultyFilter } from "@/types/quiz";
 
 import { shuffleArray } from "./utils";
@@ -25,6 +26,12 @@ import pyq2023Raw from "../../data/pyq/2023.json";
 import pyq2024Raw from "../../data/pyq/2024.json";
 import pyq2025Raw from "../../data/pyq/2025.json";
 import pyq2026Raw from "../../data/pyq/2026.json";
+import englishPackRaw from "../../data/pyq/packs/english-pack.json";
+import physicsPackRaw from "../../data/pyq/packs/physics-pack.json";
+import chemistryPackRaw from "../../data/pyq/packs/chemistry-pack.json";
+import mathsPackRaw from "../../data/pyq/packs/maths-pack.json";
+import biologyPackRaw from "../../data/pyq/packs/biology-pack.json";
+import gatPackRaw from "../../data/pyq/packs/gat-pack.json";
 
 export type QuestionFilter = {
   subject?: string;
@@ -32,6 +39,7 @@ export type QuestionFilter = {
   difficulty?: DifficultyFilter;
   year?: number;
   source?: QuestionSource;
+  paperId?: string;
   includePyq?: boolean;
   limit?: number;
   shuffle?: boolean;
@@ -80,6 +88,112 @@ function normalizeQuestions(
   return normalized.filter(isQuestion);
 }
 
+function normalizePack(raw: unknown): {
+  questions: Question[];
+  papers: PyqPaper[];
+} {
+  if (!raw || typeof raw !== "object") {
+    return { questions: [], papers: [] };
+  }
+
+  const pack = raw as Record<string, unknown>;
+
+  const passageMap = new Map<string, string>();
+
+  if (Array.isArray(pack.passages)) {
+    for (const item of pack.passages) {
+      const rec = item as Record<string, unknown>;
+
+      if (typeof rec.id === "string" && typeof rec.text === "string") {
+        passageMap.set(rec.id, rec.text);
+      }
+    }
+  }
+
+  const questions: Question[] = (
+    Array.isArray(pack.questions) ? pack.questions : []
+  )
+    .map((item) => {
+      const rec = item as Record<string, unknown>;
+
+      const question = { ...rec } as Partial<Question>;
+
+      if (
+        typeof rec.passageId === "string" &&
+        passageMap.has(rec.passageId) &&
+        !question.passage
+      ) {
+        question.passage = passageMap.get(rec.passageId);
+      }
+
+      if (!question.source) {
+        question.source = "pyq";
+      }
+
+      return question;
+    })
+    .filter(isQuestion);
+
+  const papers: PyqPaper[] = (
+    Array.isArray(pack.papers) ? pack.papers : []
+  ).flatMap((item) => {
+    const rec = item as Record<string, unknown>;
+
+    if (
+      typeof rec.id !== "string" ||
+      typeof rec.title !== "string" ||
+      typeof rec.year !== "number" ||
+      typeof rec.subject !== "string" ||
+      typeof rec.section !== "string"
+    ) {
+      return [];
+    }
+
+    const marking = rec.markingScheme as
+      | Record<string, unknown>
+      | undefined;
+
+    return [
+      {
+        id: rec.id,
+        year: rec.year,
+        title: rec.title,
+        subject: rec.subject,
+        section: rec.section as ExamSection,
+        durationMinutes:
+          typeof rec.durationMinutes === "number" ? rec.durationMinutes : 60,
+        totalQuestions:
+          typeof rec.totalQuestions === "number" ? rec.totalQuestions : 0,
+        markingScheme: {
+          correct:
+            marking && typeof marking.correct === "number"
+              ? marking.correct
+              : 5,
+          incorrect:
+            marking && typeof marking.incorrect === "number"
+              ? marking.incorrect
+              : -1,
+        },
+      },
+    ];
+  });
+
+  return { questions, papers };
+}
+
+const packResults = [
+  englishPackRaw,
+  physicsPackRaw,
+  chemistryPackRaw,
+  mathsPackRaw,
+  biologyPackRaw,
+  gatPackRaw,
+].map(normalizePack);
+
+export const packPapers: PyqPaper[] = packResults.flatMap(
+  (result) => result.papers
+);
+
 const loadedQuestions: Question[] = [
   ...normalizeQuestions(sampleQuestionsRaw, "sample"),
   ...normalizeQuestions(mathematicsQuestionsRaw, "sample"),
@@ -103,6 +217,7 @@ const loadedQuestions: Question[] = [
   ...normalizeQuestions(pyq2024Raw, "pyq"),
   ...normalizeQuestions(pyq2025Raw, "pyq"),
   ...normalizeQuestions(pyq2026Raw, "pyq"),
+  ...packResults.flatMap((result) => result.questions),
 ];
 
 const questionMap = new Map<string, Question>();
@@ -113,11 +228,22 @@ for (const question of loadedQuestions) {
 
 export const questionBank: Question[] = Array.from(questionMap.values());
 
-// Backward compatibility ke liye
 export const sampleQuestions: Question[] = questionBank;
 
 export function getQuestions(filter: QuestionFilter = {}): Question[] {
   let result = [...questionBank];
+
+  if (filter.paperId) {
+    const hasPaper = result.some(
+      (question) => question.paperId === filter.paperId
+    );
+
+    if (hasPaper) {
+      result = result.filter(
+        (question) => question.paperId === filter.paperId
+      );
+    }
+  }
 
   if (filter.source) {
     result = result.filter(
