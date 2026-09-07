@@ -1,6 +1,6 @@
 {
   "papers": [
-    { "id": "pack-maths-2025", "year": 2025, "title": "CUET UG 2025 Mathematics", "subject": "Mathematics", "section": "domain", "durationMinutes": 60, "totalQuestions": 50, "markingScheme": { "correct": 5, "incorrect": -1 } }
+    { "id": "pack-maths-2025", "year": 2025, "title": "CUET UG 2025 Mathematics", "subject": "Mathematics", "section": "domain", "durationMinutes": 60, "totalQuestions": 50, "markingScheme": { "correct": 5, "incorrect": -1 } },
   { "id": "pack-maths-2026", "year": 2026, "title": "CUET UG 2026 Mathematics", "subject": "Mathematics", "section": "domain", "durationMinutes": 60, "totalQuestions": 50, "markingScheme": { "correct": 5, "incorrect": -1 } }
   ],
   "passages": [],
