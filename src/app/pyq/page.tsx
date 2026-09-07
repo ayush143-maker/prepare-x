@@ -6,24 +6,16 @@ import { Clock, FileSearch, GraduationCap } from "lucide-react";
 import { AppShell, PageShell } from "@/components/layout";
 import { PaperCard, YearFilter } from "@/components/pyq";
 import { Card, SectionHeading } from "@/components/ui";
-import { ButtonLink } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PYQ_PAPERS } from "@/lib/constants";
 import { packPapers } from "@/lib/question-bank";
 
+const ALL_YEARS = [2022, 2023, 2024, 2025, 2026];
+
 export default function PyqPage() {
   const [activeYear, setActiveYear] = useState<number | null>(null);
 
-  const allPapers = useMemo(
-    () => [...PYQ_PAPERS, ...packPapers],
-    []
-  );
-
-  const years = useMemo(() => {
-    const set = new Set(allPapers.map((paper) => paper.year));
-
-    return Array.from(set).sort((a, b) => a - b);
-  }, [allPapers]);
+  const allPapers = useMemo(() => [...PYQ_PAPERS, ...packPapers], []);
 
   const filteredPapers = useMemo(() => {
     if (!activeYear) {
@@ -49,25 +41,47 @@ export default function PyqPage() {
 
         <div className="mt-8">
           <YearFilter
-            years={years}
+            years={ALL_YEARS}
             activeYear={activeYear}
             onSelect={setActiveYear}
           />
         </div>
 
         {filteredPapers.length === 0 ? (
-          <div className="mt-10">
-            <EmptyState
-              icon={FileSearch}
-              title="No papers found"
-              description="Is year ke liye abhi koi PYQ paper available nahi hai."
-              action={
-                <ButtonLink href="/pyq" variant="secondary">
-                  Reset Filters
-                </ButtonLink>
-              }
-            />
-          </div>
+          activeYear ? (
+            <div className="mt-10">
+              <Card className="flex flex-col items-start gap-6 p-8">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-400/10">
+                    <Clock className="h-6 w-6 text-amber-300" />
+                  </div>
+
+                  <div>
+                    <h2 className="text-xl font-semibold">
+                      CUET UG {activeYear} Papers
+                    </h2>
+                    <p className="mt-1 text-sm text-zinc-400">
+                      Coming Soon — ye papers jald hi arena me enter karenge.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-sm leading-6 text-zinc-500">
+                  Tab tak 2025 ke real shift papers practice karo. Naye saal
+                  ke papers jaise hi ready honge, ye card apne aap real
+                  papers me badal jayega.
+                </p>
+              </Card>
+            </div>
+          ) : (
+            <div className="mt-10">
+              <EmptyState
+                icon={FileSearch}
+                title="No papers yet"
+                description="Abhi tak koi PYQ paper load nahi hua hai. Pack files me papers add hote hi yahan dikhne lagenge."
+              />
+            </div>
+          )
         ) : (
           <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {filteredPapers.map((paper) => (
