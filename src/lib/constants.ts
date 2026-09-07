@@ -155,7 +155,7 @@ export const TOPICS: TopicMeta[] = [
   },
 ];
 
-export const PYQ_YEARS = [2022, 2023, 2024, 2025, 2026] as const;
+export const PYQ_PAPERS: PyqPaper[] = [];
 
 export const DIFFICULTY_OPTIONS = [
   "easy",
