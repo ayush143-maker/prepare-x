@@ -8,18 +8,30 @@ import { PaperCard, YearFilter } from "@/components/pyq";
 import { Card, SectionHeading } from "@/components/ui";
 import { ButtonLink } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { PYQ_PAPERS, PYQ_YEARS } from "@/lib/constants";
+import { PYQ_PAPERS } from "@/lib/constants";
+import { packPapers } from "@/lib/question-bank";
 
 export default function PyqPage() {
   const [activeYear, setActiveYear] = useState<number | null>(null);
 
+  const allPapers = useMemo(
+    () => [...PYQ_PAPERS, ...packPapers],
+    []
+  );
+
+  const years = useMemo(() => {
+    const set = new Set(allPapers.map((paper) => paper.year));
+
+    return Array.from(set).sort((a, b) => a - b);
+  }, [allPapers]);
+
   const filteredPapers = useMemo(() => {
     if (!activeYear) {
-      return PYQ_PAPERS;
+      return allPapers;
     }
 
-    return PYQ_PAPERS.filter((paper) => paper.year === activeYear);
-  }, [activeYear]);
+    return allPapers.filter((paper) => paper.year === activeYear);
+  }, [activeYear, allPapers]);
 
   return (
     <AppShell>
@@ -37,7 +49,7 @@ export default function PyqPage() {
 
         <div className="mt-8">
           <YearFilter
-            years={PYQ_YEARS}
+            years={years}
             activeYear={activeYear}
             onSelect={setActiveYear}
           />
@@ -48,12 +60,9 @@ export default function PyqPage() {
             <EmptyState
               icon={FileSearch}
               title="No papers found"
-              description="Is year ke liye abhi koi PYQ paper available nahi hai. Dusri year choose karo ya all years dekho."
+              description="Is year ke liye abhi koi PYQ paper available nahi hai."
               action={
-                <ButtonLink
-                  href="/pyq"
-                  variant="secondary"
-                >
+                <ButtonLink href="/pyq" variant="secondary">
                   Reset Filters
                 </ButtonLink>
               }
