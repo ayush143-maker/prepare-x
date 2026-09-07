@@ -43,6 +43,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       topic: config.topics?.[0],
       difficulty: config.difficulty,
       year: config.year,
+      paperId: config.paperId,
       limit: questionCount,
       shuffle: config.shuffleQuestions,
     });
