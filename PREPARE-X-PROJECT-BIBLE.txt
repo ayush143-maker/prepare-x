@@ -1,0 +1,328 @@
+================================================================================
+                         PREPARE-X — PROJECT BIBLE
+                    Architecture, Structure & How-To Guide
+================================================================================
+
+Created: September 2026
+Stack: Next.js 15 + TypeScript + Tailwind CSS + Vercel
+Total Questions: 600 (6 Subjects × 2 Papers × 50 Questions)
+
+================================================================================
+                    SECTION 1: PROJECT STRUCTURE (SHORT)
+================================================================================
+
+prepare-x/
+│
+├── src/
+│   ├── app/                          # Next.js App Router (Pages)
+│   │   ├── page.tsx                  # Homepage (Landing)
+│   │   ├── layout.tsx                # Root layout (fonts, metadata)
+│   │   ├── globals.css               # Global CSS (grid animation, noise, etc.)
+│   │   ├── pyq/
+│   │   │   ├── page.tsx              # PYQ listing page (shows all papers)
+│   │   │   └── [paperId]/
+│   │   │       └── page.tsx          # Individual paper detail + start button
+│   │   ├── quiz/
+│   │   │   └── page.tsx              # Live quiz interface (timer, MCQs)
+│   │   ├── results/
+│   │   │   └── page.tsx              # Score card after quiz ends
+│   │   ├── dashboard/
+│   │   │   └── page.tsx              # Past attempts & analytics
+│   │   ├── settings/
+│   │   │   └── page.tsx              # Timer, difficulty preferences
+│   │   └── api/
+│   │       ├── pyq/route.ts          # API: fetch papers list
+│   │       └── attempts/route.ts     # API: save/fetch quiz attempts
+│   │
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── app-shell.tsx         # Main wrapper (grid, aurora, noise, navbar, footer)
+│   │   │   ├── navbar.tsx            # Top navigation bar
+│   │   │   ├── footer.tsx            # Footer
+│   │   │   └── spotlight.tsx         # Mouse-follow spotlight effect
+│   │   ├── home/
+│   │   │   ├── hero-section.tsx      # Landing page hero
+│   │   │   ├── feature-grid.tsx      # Feature cards on homepage
+│   │   │   └── index.ts              # Barrel export
+│   │   ├── quiz/
+│   │   │   ├── quiz-builder.tsx      # Quiz config (subject, difficulty, count)
+│   │   │   ├── question-card.tsx     # Single MCQ card UI
+│   │   │   └── timer.tsx             # Countdown timer
+│   │   └── ui/                       # Reusable UI atoms (buttons, cards, etc.)
+│   │
+│   ├── lib/
+│   │   ├── constants.ts              # ★ MASTER CONFIG — PYQ_PAPERS, SUBJECTS,
+│   │   │                             #   MARKING_SCHEME, TIMER_OPTIONS, etc.
+│   │   ├── question-bank.ts          # ★ BRAIN — loads all JSON packs, normalizes
+│   │   │                             #   them, builds unified question bank
+│   │   ├── scoring.ts                # Score calculation (correct/incorrect/unanswered)
+│   │   └── utils.ts                  # Shuffle, helpers
+│   │
+│   ├── store/
+│   │   └── quiz-store.ts             # Zustand store for quiz state management
+│   │
+│   └── types/
+│       ├── question.ts               # Question, QuestionSource, ExamSection types
+│       ├── cuet.ts                   # PyqPaper type definition
+│       └── quiz.ts                   # DifficultyFilter, QuizConfig types
+│
+├── data/
+│   └── pyq/
+│       └── packs/                    # ★ ALL QUESTION DATA LIVES HERE
+│           ├── english-pack.json     # 100 Qs (2025: 50 + 2026: 50)
+│           ├── physics-pack.json     # 100 Qs (2025: 50 + 2026: 50)
+│           ├── chemistry-pack.json   # 100 Qs (2025: 50 + 2026: 50)
+│           ├── maths-pack.json       # 100 Qs (2025: 50 + 2026: 50)
+│           ├── biology-pack.json     # 100 Qs (2025: 50 + 2026: 50)
+│           └── gat-pack.json         # 100 Qs (2025: 50 + 2026: 50)
+│
+├── public/                           # Static assets (images, icons)
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+└── next.config.ts
+
+
+================================================================================
+        SECTION 2: HOW TO ADD NEW PYQ PAPERS (e.g., 2027 Papers)
+================================================================================
+
+Follow these 3 steps IN ORDER. Miss any step = build fails.
+
+─────────────────────────────────────────────────────────────────────
+STEP 1: Add questions to the JSON pack file
+─────────────────────────────────────────────────────────────────────
+
+TARGET FILE:  data/pyq/packs/<subject>-pack.json
+
+Example:      data/pyq/packs/english-pack.json
+
+Each JSON pack has this structure:
+
+{
+  "papers": [
+    { "id": "pack-english-2025", ... },
+    { "id": "pack-english-2026", ... },
+    { "id": "pack-english-2027", ... }       ← ADD NEW PAPER HERE
+  ],
+  "passages": [
+    { "id": "eng27-p1", "text": "..." }     ← ADD PASSAGES IF ANY
+  ],
+  "questions": [
+    { "id": "eng25_01", ... },
+    ...
+    { "id": "eng27_01", ... }                ← ADD NEW QUESTIONS HERE
+  ]
+}
+
+PAPER OBJECT FORMAT:
+{
+  "id": "pack-english-2027",
+  "year": 2027,
+  "title": "CUET UG 2027 English",
+  "subject": "English",
+  "section": "language",
+  "durationMinutes": 45,
+  "totalQuestions": 50,
+  "markingScheme": { "correct": 5, "incorrect": -1, "unanswered": 0 }
+}
+
+QUESTION OBJECT FORMAT:
+{
+  "id": "eng27_01",                          ← Unique ID (subject + year + number)
+  "section": "language",                     ← "language" | "domain" | "general"
+  "subject": "English",
+  "topic": "Reading Comprehension",
+  "difficulty": "medium",                    ← "easy" | "medium" | "hard"
+  "question": "What is the main idea...?",
+  "passage": "Long passage text here...",    ← OPTIONAL (or use passageId)
+  "passageId": "eng27-p1",                   ← OPTIONAL (links to passages array)
+  "options": ["Option A", "Option B", "Option C", "Option D"],
+  "correctIndex": 2,                         ← 0-based index (0=A, 1=B, 2=C, 3=D)
+  "explanation": "Answer is C because...",
+  "paperId": "pack-english-2027",            ← MUST match paper id exactly
+  "year": 2027,
+  "source": "pyq"                            ← "pyq" for real papers
+}
+
+IMPORTANT RULES:
+  • Every question's "paperId" MUST match a paper "id" in the papers array
+  • "correctIndex" is 0-based (0 = first option)
+  • Validate JSON at jsonlint.com before committing
+  • No trailing commas after last item in arrays
+
+─────────────────────────────────────────────────────────────────────
+STEP 2: Register the paper in constants.ts
+─────────────────────────────────────────────────────────────────────
+
+TARGET FILE:  src/lib/constants.ts
+
+Add a new entry to the PYQ_PAPERS array:
+
+{ 
+  id: "pack-english-2027", 
+  title: "CUET UG 2027 English", 
+  year: 2027, 
+  subject: "English", 
+  section: "language", 
+  durationMinutes: 45, 
+  totalQuestions: 50, 
+  markingScheme: MARKING_SCHEME 
+},
+
+Also update PYQ_YEARS if adding a new year:
+
+export const PYQ_YEARS = [2024, 2025, 2026, 2027];  ← add 2027
+
+─────────────────────────────────────────────────────────────────────
+STEP 3: (Only if adding a NEW SUBJECT) Update question-bank.ts
+─────────────────────────────────────────────────────────────────────
+
+TARGET FILE:  src/lib/question-bank.ts
+
+This file imports all JSON packs. If you're adding a completely new
+subject (e.g., "History"), you need to:
+
+1. Create:  data/pyq/packs/history-pack.json
+2. Add import in question-bank.ts:
+   import historyPackRaw from "../../data/pyq/packs/history-pack.json";
+3. Add to the normalization array:
+   const packResults = [
+     englishPackRaw,
+     physicsPackRaw,
+     chemistryPackRaw,
+     mathsPackRaw,
+     biologyPackRaw,
+     gatPackRaw,
+     historyPackRaw,        ← NEW
+   ].map(normalizePack);
+4. Add subject in constants.ts SUBJECTS array:
+   { id: "history", name: "History", section: "domain" },
+
+NOTE: If you're just adding more papers to existing subjects
+(English, Physics, Chemistry, Maths, Biology, GAT), you do NOT
+need to touch question-bank.ts at all. Steps 1 and 2 are enough.
+
+
+================================================================================
+     SECTION 3: HOW TO ADD PRACTICE MODE QUESTIONS (Non-PYQ)
+================================================================================
+
+Practice mode questions go in the SAME JSON pack files.
+The only difference is the "source" field.
+
+TARGET FILE:  data/pyq/packs/<subject>-pack.json
+
+Just add questions with "source": "practice" instead of "pyq":
+
+{
+  "id": "eng_practice_001",
+  "section": "language",
+  "subject": "English",
+  "topic": "Vocabulary",
+  "difficulty": "hard",
+  "question": "Choose the synonym of 'Ephemeral':",
+  "options": ["Eternal", "Transient", "Robust", "Ancient"],
+  "correctIndex": 1,
+  "explanation": "Ephemeral means short-lived, transient.",
+  "paperId": "",                             ← Empty string (no paper)
+  "year": 0,                                 ← 0 or current year
+  "source": "practice"                       ← THIS IS THE KEY DIFFERENCE
+}
+
+HOW THE APP FILTERS:
+  • PYQ Mode:       shows questions where source = "pyq"
+  • Practice Mode:  shows questions where source = "practice"
+  • Quiz Builder:   can filter by subject, topic, difficulty, source
+
+You do NOT need to add anything to the "papers" array for
+practice questions. They are standalone questions without a
+parent paper.
+
+
+================================================================================
+              SECTION 4: QUICK REFERENCE — FILE TARGET CHEAT SHEET
+================================================================================
+
+┌────────────────────────────────┬─────────────────────────────────────────┐
+│ WHAT YOU WANT TO DO            │ FILE(S) TO EDIT                         │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Add PYQ questions              │ data/pyq/packs/<subject>-pack.json     │
+│                                │ src/lib/constants.ts (PYQ_PAPERS array)│
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Add practice questions         │ data/pyq/packs/<subject>-pack.json     │
+│                                │ (source: "practice", no paper needed)  │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Add a NEW subject              │ data/pyq/packs/new-subject-pack.json   │
+│                                │ src/lib/question-bank.ts (import + arr)│
+│                                │ src/lib/constants.ts (SUBJECTS + paper)│
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change marking scheme          │ src/lib/constants.ts (MARKING_SCHEME)  │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change timer options           │ src/lib/constants.ts (TIMER_OPTIONS)   │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change background/grid style   │ src/app/globals.css (.bg-grid class)   │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change layout (navbar/footer)  │ src/components/layout/app-shell.tsx    │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change quiz UI                 │ src/components/quiz/*.tsx               │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change scoring logic           │ src/lib/scoring.ts                     │
+├────────────────────────────────┼─────────────────────────────────────────┤
+│ Change quiz state management   │ src/store/quiz-store.ts                │
+└────────────────────────────────┴─────────────────────────────────────────┘
+
+
+================================================================================
+              SECTION 5: CURRENT DATA SUMMARY (As of Sept 2026)
+================================================================================
+
+┌──────────────┬───────────┬───────────┬────────┐
+│ Subject      │ 2025 Pack │ 2026 Pack │ Total  │
+├──────────────┼───────────┼───────────┼────────┤
+│ English      │ 50 Qs     │ 50 Qs     │ 100    │
+│ Physics      │ 50 Qs     │ 50 Qs     │ 100    │
+│ Chemistry    │ 50 Qs     │ 50 Qs     │ 100    │
+│ Mathematics  │ 50 Qs     │ 50 Qs     │ 100    │
+│ Biology      │ 50 Qs     │ 50 Qs     │ 100    │
+│ General Test │ 50 Qs     │ 50 Qs     │ 100    │
+├──────────────┼───────────┼───────────┼────────┤
+│ GRAND TOTAL  │ 300       │ 300       │ 600    │
+└──────────────┴───────────┴───────────┴────────┘
+
+Sources:
+  • English:    Real CUET shift PDFs (2025) + hard top-up
+  • Physics:    Real CUET shift PDFs + hard top-up
+  • Chemistry:  Real CUET shift PDFs (chem1, chem2, chem4) + hard top-up
+  • Mathematics: Real CUET shift PDFs (maths1, maths2) + hard top-up
+  • Biology:    Real CUET shift PDFs (bio1, bio2, bio3)
+  • GAT:        100% original CUET-pattern (Quant, Reasoning, Verbal, GK)
+
+
+================================================================================
+                      SECTION 6: DEPLOYMENT CHECKLIST
+================================================================================
+
+Before every push to Vercel:
+
+  [ ] JSON files validated at jsonlint.com (no trailing commas)
+  [ ] constants.ts has matching paper entries for every JSON paper
+  [ ] question-bank.ts imports all pack files
+  [ ] Run "npm run build" locally — must show green checkmark
+  [ ] No duplicate export names in constants.ts
+  [ ] All markingScheme objects have: correct, incorrect, unanswered
+  [ ] Every question has: id, section, subject, topic, difficulty,
+      question, options (4), correctIndex (0-3), explanation,
+      paperId, year, source
+
+Then:
+  git add .
+  git commit -m "feat: description of what you added"
+  git push
+
+Vercel auto-deploys from main branch.
+
+
+================================================================================
+                            END OF PROJECT BIBLE
+================================================================================
