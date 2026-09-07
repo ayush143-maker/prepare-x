@@ -173,6 +173,10 @@ function normalizePack(raw: unknown): {
             marking && typeof marking.incorrect === "number"
               ? marking.incorrect
               : -1,
+          unanswered:
+            marking && typeof marking.unanswered === "number"
+              ? marking.unanswered
+              : 0,
         },
       },
     ];
