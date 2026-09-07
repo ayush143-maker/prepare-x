@@ -27,6 +27,7 @@ export interface QuizConfig {
   topics?: string[];
   difficulty?: DifficultyFilter;
   year?: number;
+  paperId?: string;
   questionCount: number;
   timeLimitSeconds: number;
   shuffleQuestions: boolean;
