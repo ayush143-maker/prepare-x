@@ -15,7 +15,7 @@ export interface PaperMeta {
   markingScheme: {
     correct: number;
     incorrect: number;
-    unanswered?: number;
+    unanswered: number;
   };
 }
 
