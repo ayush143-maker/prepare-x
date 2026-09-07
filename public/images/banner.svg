@@ -1,81 +1,138 @@
-<svg width="1200" height="420" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CUET Prep Arena animated banner">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="CUET Prep Arena">
   <defs>
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="420" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#05060F"/>
-      <stop offset="1" stop-color="#0B0D1A"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05060f"/>
+      <stop offset="0.55" stop-color="#0a0a1e"/>
+      <stop offset="1" stop-color="#05060f"/>
     </linearGradient>
-    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop stop-color="#6366F1"/>
-      <stop offset="0.5" stop-color="#E879F9"/>
-      <stop offset="1" stop-color="#22D3EE"/>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#818cf8"/>
+      <stop offset="0.5" stop-color="#e879f9"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+      <animate attributeName="x1" values="0;0.6;0" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="1;1.6;1" dur="7s" repeatCount="indefinite"/>
     </linearGradient>
-    <linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0">
-      <stop stop-color="#6366F1"/>
-      <stop offset="1" stop-color="#22D3EE"/>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#22d3ee"/>
     </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6366f1" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1"/>
+      <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="56 56" dur="7s" repeatCount="indefinite"/>
+    </pattern>
   </defs>
 
-  <rect width="1200" height="420" rx="28" fill="url(#bgGrad)"/>
-  <rect x="1.5" y="1.5" width="1197" height="417" rx="26.5" stroke="url(#accentGrad)" stroke-opacity="0.35" stroke-width="3"/>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
 
-  <circle cx="180" cy="90" r="130" fill="#6366F1" opacity="0.16">
-    <animate attributeName="cy" values="90;130;90" dur="7s" repeatCount="indefinite"/>
+  <ellipse cx="240" cy="120" rx="380" ry="220" fill="url(#glowA)">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="1080" cy="520" rx="420" ry="240" fill="url(#glowB)">
+    <animate attributeName="opacity" values="1;0.6;1" dur="8s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <circle cx="180" cy="640" r="3" fill="#e879f9" opacity="0">
+    <animate attributeName="cy" values="660;-20" dur="16s" begin="0s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.9;0" dur="16s" begin="0s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="1050" cy="330" r="150" fill="#22D3EE" opacity="0.12">
-    <animate attributeName="cy" values="330;290;330" dur="8s" repeatCount="indefinite"/>
+  <circle cx="420" cy="640" r="2" fill="#22d3ee" opacity="0">
+    <animate attributeName="cy" values="660;-20" dur="13s" begin="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.8;0" dur="13s" begin="2s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="620" cy="380" r="110" fill="#E879F9" opacity="0.10">
-    <animate attributeName="cx" values="620;700;620" dur="9s" repeatCount="indefinite"/>
+  <circle cx="640" cy="640" r="3" fill="#818cf8" opacity="0">
+    <animate attributeName="cy" values="660;-20" dur="18s" begin="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.7;0" dur="18s" begin="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="900" cy="640" r="2" fill="#e879f9" opacity="0">
+    <animate attributeName="cy" values="660;-20" dur="12s" begin="1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.8;0" dur="12s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="1120" cy="640" r="3" fill="#22d3ee" opacity="0">
+    <animate attributeName="cy" values="660;-20" dur="15s" begin="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.9;0" dur="15s" begin="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="1240" cy="640" r="2" fill="#818cf8" opacity="0">
+    <animate attributeName="cy" values="660;-20" dur="11s" begin="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.7;0" dur="11s" begin="7s" repeatCount="indefinite"/>
   </circle>
 
-  <text x="70" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="62" font-weight="800" fill="#FFFFFF">CUET PREP</text>
-  <text x="70" y="222" font-family="Segoe UI, Arial, sans-serif" font-size="62" font-weight="800" fill="url(#accentGrad)">ARENA</text>
-  <text x="72" y="268" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#9CA3AF">Practice • PYQ • Timer • Topic-wise Analytics</text>
+  <g stroke-width="2" fill="none">
+    <path d="M620 120v16M612 128h16" stroke="#e879f9" stroke-opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 620 128" to="180 620 128" dur="6s" repeatCount="indefinite"/>
+    </path>
+    <path d="M700 480v12M694 486h12" stroke="#22d3ee" stroke-opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 700 486" to="-180 700 486" dur="8s" repeatCount="indefinite"/>
+    </path>
+  </g>
 
-  <g font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600">
-    <g>
-      <rect x="72" y="300" width="120" height="44" rx="22" fill="#6366F1" fill-opacity="0.15" stroke="#6366F1" stroke-opacity="0.5"/>
-      <text x="132" y="328" text-anchor="middle" fill="#A5B4FC">Practice</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -6; 0 0" dur="4s" repeatCount="indefinite"/>
-    </g>
-    <g>
-      <rect x="208" y="300" width="90" height="44" rx="22" fill="#E879F9" fill-opacity="0.15" stroke="#E879F9" stroke-opacity="0.5"/>
-      <text x="253" y="328" text-anchor="middle" fill="#F0ABFC">PYQ</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -6; 0 0" dur="5s" repeatCount="indefinite"/>
-    </g>
-    <g>
-      <rect x="314" y="300" width="130" height="44" rx="22" fill="#22D3EE" fill-opacity="0.15" stroke="#22D3EE" stroke-opacity="0.5"/>
-      <text x="379" y="328" text-anchor="middle" fill="#67E8F9">Analytics</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -6; 0 0" dur="6s" repeatCount="indefinite"/>
+  <g font-family="ui-sans-serif, system-ui, Segoe UI, Arial, sans-serif">
+    <rect x="80" y="96" width="230" height="40" rx="20" fill="#ffffff" fill-opacity="0.06" stroke="#e879f9" stroke-opacity="0.5"/>
+    <text x="102" y="122" font-size="15" letter-spacing="2" fill="#f0abfc">BUILT FOR CUET 2027</text>
+
+    <text x="78" y="222" font-size="72" font-weight="800" fill="url(#titleGrad)">CUET PREP</text>
+    <text x="78" y="300" font-size="72" font-weight="800" fill="url(#titleGrad)">ARENA</text>
+    <text x="82" y="348" font-size="22" fill="#a1a1aa">Practice that feels like the real exam.</text>
+
+    <g font-size="15" font-weight="600">
+      <rect x="80" y="392" width="160" height="44" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.12"/>
+      <circle cx="104" cy="414" r="5" fill="#34d399">
+        <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <text x="120" y="420" fill="#e4e4e7">600+ Questions</text>
+
+      <rect x="252" y="392" width="152" height="44" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.12"/>
+      <circle cx="276" cy="414" r="5" fill="#22d3ee">
+        <animate attributeName="r" values="4;6;4" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+      <text x="292" y="420" fill="#e4e4e7">12 Real Papers</text>
+
+      <rect x="416" y="392" width="110" height="44" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.12"/>
+      <circle cx="440" cy="414" r="5" fill="#e879f9">
+        <animate attributeName="r" values="4;6;4" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <text x="456" y="420" fill="#e4e4e7">+5 / -1</text>
     </g>
   </g>
 
-  <g>
-    <circle cx="980" cy="170" r="86" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="10" fill="none"/>
-    <circle cx="980" cy="170" r="86" stroke="url(#accentGrad)" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="540" stroke-dashoffset="540">
-      <animate attributeName="stroke-dashoffset" values="540;120;540" dur="9s" repeatCount="indefinite"/>
+  <g font-family="ui-sans-serif, system-ui, Segoe UI, Arial, sans-serif">
+    <rect x="760" y="120" width="440" height="400" rx="24" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.1"/>
+    <circle cx="792" cy="156" r="5" fill="#34d399">
+      <animate attributeName="opacity" values="1;0.2;1" dur="1.6s" repeatCount="indefinite"/>
     </circle>
-    <text x="980" y="182" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">15:00</text>
+    <text x="808" y="162" font-size="13" letter-spacing="3" fill="#a1a1aa">LIVE SESSION</text>
+    <text x="1168" y="162" text-anchor="end" font-size="16" font-weight="700" fill="#22d3ee" font-family="ui-monospace, Menlo, Consolas, monospace">13:57<animate attributeName="opacity" values="1;1;0.35;1" dur="2s" repeatCount="indefinite"/></text>
+    <text x="792" y="212" font-size="20" font-weight="700" fill="#fafafa">Next number: 2, 6, 12, 20, ?</text>
+
+    <g font-size="16" fill="#d4d4d8">
+      <rect x="792" y="240" width="376" height="42" rx="12" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="812" y="266">28</text>
+      <rect x="792" y="292" width="376" height="42" rx="12" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="812" y="318">30</text>
+      <rect x="792" y="344" width="376" height="42" rx="12" fill="#22d3ee" fill-opacity="0.08" stroke="#22d3ee" stroke-opacity="0.8">
+        <animate attributeName="stroke-opacity" values="0.9;0.35;0.9" dur="2.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="812" y="370" fill="#67e8f9">32</text>
+      <rect x="792" y="396" width="376" height="42" rx="12" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="812" y="422">34</text>
+    </g>
+
+    <rect x="792" y="468" width="376" height="6" rx="3" fill="#ffffff" fill-opacity="0.08"/>
+    <rect x="792" y="468" width="120" height="6" rx="3" fill="url(#barGrad)">
+      <animate attributeName="width" values="40;300;40" dur="9s" repeatCount="indefinite"/>
+    </rect>
+    <text x="1168" y="498" text-anchor="end" font-size="15" font-weight="700" fill="#e879f9" font-family="ui-monospace, Menlo, Consolas, monospace">Score: 46</text>
   </g>
 
-  <g>
-    <rect x="700" y="300" width="26" height="60" rx="8" fill="url(#barGrad)">
-      <animate attributeName="height" values="60;100;60" dur="3s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="300;260;300" dur="3s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="742" y="280" width="26" height="80" rx="8" fill="url(#barGrad)">
-      <animate attributeName="height" values="80;120;80" dur="3.5s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="280;240;280" dur="3.5s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="784" y="310" width="26" height="50" rx="8" fill="url(#barGrad)">
-      <animate attributeName="height" values="50;95;50" dur="4s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="310;265;310" dur="4s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="826" y="270" width="26" height="90" rx="8" fill="url(#barGrad)">
-      <animate attributeName="height" values="90;130;90" dur="4.5s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="270;230;270" dur="4.5s" repeatCount="indefinite"/>
-    </rect>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#71717a" letter-spacing="4">
+    <text x="0" y="608">PHYSICS • CHEMISTRY • MATHEMATICS • BIOLOGY • ENGLISH • GENERAL TEST • PHYSICS • CHEMISTRY • MATHEMATICS • BIOLOGY • ENGLISH • GENERAL TEST •<animateTransform attributeName="transform" type="translate" from="1280 0" to="-2400 0" dur="22s" repeatCount="indefinite"/></text>
   </g>
-
-  <text x="700" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#6B7280">Accuracy • Speed • Consistency</text>
 </svg>
