@@ -1,4 +1,4 @@
-=export type ExamSection = "language" | "domain" | "general";
+export type ExamSection = "language" | "domain" | "general";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
