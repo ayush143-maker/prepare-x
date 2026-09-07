@@ -1,18 +1,8 @@
-export type ExamSection =
-  | "language"
-  | "domain"
-  | "general";
+=export type ExamSection = "language" | "domain" | "general";
 
-export type Difficulty =
-  | "easy"
-  | "medium"
-  | "hard";
+export type Difficulty = "easy" | "medium" | "hard";
 
-export type QuestionSource =
-  | "sample"
-  | "pyq"
-  | "mock"
-  | "user";
+export type QuestionSource = "sample" | "pyq" | "mock" | "user";
 
 export interface Question {
   id: string;
@@ -22,6 +12,8 @@ export interface Question {
   subtopic?: string;
   difficulty: Difficulty;
   question: string;
+  passage?: string;
+  passageId?: string;
   options: string[];
   correctIndex: number;
   explanation?: string;
