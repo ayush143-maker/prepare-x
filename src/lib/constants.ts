@@ -40,5 +40,20 @@ export const PYQ_PAPERS: PaperMeta[] = [
   { id: "pack-gat-2026", title: "CUET UG 2026 General Test", year: 2026, subject: "General Test", section: "general", durationMinutes: 60, totalQuestions: 50 },
 ];
 
+// --- Missing Exports Fix ---
+export const DEFAULT_MARKING = {
+  correct: 5,
+  incorrect: -1,
+  unanswered: 0
+};
+
+export const TIMER_OPTIONS = [15, 30, 45, 60];
+
+export const DIFFICULTY_OPTIONS = ["easy", "medium", "hard"];
+
+export const QUESTION_COUNT_OPTIONS = [10, 20, 30, 40, 50];
+
+export const PYQ_YEARS = [2024, 2025, 2026];
+
 export const APP_NAME = "Prepare-X";
 export const SUBJECTS = ["English", "Physics", "Chemistry", "Mathematics", "Biology", "General Test"];
