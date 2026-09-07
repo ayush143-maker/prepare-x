@@ -1,8 +1,13 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 import type { Question } from "@/types/question";
 
 import { Badge } from "@/components/ui/badge";
+import { getSettings } from "@/lib/settings";
+import { sfx } from "@/lib/sound";
+
 import { OptionCard } from "./option-card";
 
 interface QuestionCardProps {
@@ -20,6 +25,27 @@ export function QuestionCard({
   showExplanation = false,
   onSelect,
 }: QuestionCardProps) {
+  const settings = getSettings();
+  const prevSubmitted = useRef(submitted);
+
+  useEffect(() => {
+    if (submitted && !prevSubmitted.current) {
+      if (selectedIndex === question.correctIndex) {
+        sfx.correct();
+      } else {
+        sfx.wrong();
+      }
+    }
+    prevSubmitted.current = submitted;
+  }, [submitted, selectedIndex, question.correctIndex]);
+
+  const showInstant =
+    !submitted && settings.instantExplanation && selectedIndex !== null;
+  const showAfterSubmit =
+    submitted && (showExplanation || settings.explanationAfterSubmit);
+  const showExplanationBox =
+    (showInstant || showAfterSubmit) && Boolean(question.explanation);
+
   return (
     <div className="glass-card p-8">
       {question.passage ? (
@@ -61,13 +87,16 @@ export function QuestionCard({
               correct={isCorrect}
               incorrect={isIncorrect}
               disabled={submitted}
-              onSelect={onSelect}
+              onSelect={(i) => {
+                sfx.select();
+                onSelect(i);
+              }}
             />
           );
         })}
       </div>
 
-      {submitted && showExplanation && question.explanation ? (
+      {showExplanationBox ? (
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5">
           <p className="text-sm font-semibold text-cyan-300">Explanation</p>
           <p className="mt-2 text-sm leading-6 text-zinc-300">
