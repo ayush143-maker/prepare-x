@@ -1,21 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 100" width="800" height="100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 220" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="50%" stop-color="#1a1145"/>
+    <!-- Dark sleek background matching your app -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#05060f"/>
       <stop offset="100%" stop-color="#0f172a"/>
     </linearGradient>
-    <linearGradient id="txt" x1="0%" y1="0%" x2="100%" y2="0%">
+    
+    <!-- Your exact app gradient (Indigo -> Fuchsia -> Cyan) -->
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#818cf8"/>
-      <stop offset="40%" stop-color="#c084fc"/>
+      <stop offset="50%" stop-color="#e879f9"/>
       <stop offset="100%" stop-color="#22d3ee"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
-    </radialGradient>
+
+    <!-- Ambient glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="45"/>
+    </filter>
   </defs>
-  <rect width="800" height="100" rx="14" fill="url(#bg)" stroke="#1e293b" stroke-width="1.5"/>
-  <ellipse cx="400" cy="50" rx="300" ry="45" fill="url(#glow)"/>
-  <text x="400" y="62" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="42" font-weight="900" letter-spacing="6" fill="url(#txt)">3.8M TOKENS!</text>
+
+  <!-- Base Card -->
+  <rect width="850" height="220" rx="32" fill="url(#bg)" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1.5"/>
+  
+  <!-- Aurora Glows (Matches your app-shell.tsx) -->
+  <circle cx="220" cy="110" r="140" fill="#6366f1" opacity="0.25" filter="url(#glow)"/>
+  <circle cx="630" cy="110" r="140" fill="#22d3ee" opacity="0.15" filter="url(#glow)"/>
+
+  <!-- Main Typography -->
+  <text x="425" y="135" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="82" font-weight="900" fill="url(#textGrad)" text-anchor="middle" letter-spacing="-2">
+    3.8M TOKENS
+  </text>
 </svg>
