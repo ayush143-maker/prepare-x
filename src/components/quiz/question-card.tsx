@@ -22,6 +22,17 @@ export function QuestionCard({
 }: QuestionCardProps) {
   return (
     <div className="glass-card p-8">
+      {question.passage ? (
+        <div className="mb-6 max-h-64 overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
+            Reading Passage
+          </p>
+          <p className="mt-2 whitespace-pre-line text-sm leading-6 text-zinc-300">
+            {question.passage}
+          </p>
+        </div>
+      ) : null}
+
       <div className="flex flex-wrap items-center gap-3">
         <Badge variant="info">{question.subject}</Badge>
         <Badge>{question.topic}</Badge>
