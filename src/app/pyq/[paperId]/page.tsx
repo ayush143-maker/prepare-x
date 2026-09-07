@@ -17,6 +17,7 @@ import { Badge, Card } from "@/components/ui";
 import { ButtonLink } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PYQ_PAPERS } from "@/lib/constants";
+import { packPapers } from "@/lib/question-bank";
 
 type Props = {
   params: Promise<{
@@ -27,7 +28,9 @@ type Props = {
 export default function PyqPaperPage({ params }: Props) {
   const { paperId } = use(params);
 
-  const paper = PYQ_PAPERS.find((item) => item.id === paperId);
+  const allPapers = [...PYQ_PAPERS, ...packPapers];
+
+  const paper = allPapers.find((item) => item.id === paperId);
 
   if (!paper) {
     return (
@@ -36,7 +39,7 @@ export default function PyqPaperPage({ params }: Props) {
           <EmptyState
             icon={FileText}
             title="Paper not found"
-            description="Ye PYQ paper available nahi hai. PYQ page pe wapas jao aur dusra paper choose karo."
+            description="Ye PYQ paper available nahi hai. PYQ page pe wapas jao."
             action={
               <ButtonLink href="/pyq">
                 Back to PYQs
@@ -114,22 +117,6 @@ export default function PyqPaperPage({ params }: Props) {
             <ButtonLink href="/dashboard" variant="secondary" size="lg">
               View Past Attempts
             </ButtonLink>
-          </div>
-        </Card>
-
-        <Card className="mt-8 p-6">
-          <div className="flex items-start gap-3">
-            <Layers className="mt-0.5 h-5 w-5 text-cyan-300" />
-
-            <div>
-              <h2 className="text-lg font-semibold">Attempt Strategy</h2>
-
-              <p className="mt-2 text-sm leading-6 text-zinc-400">
-                Pehle easy questions clear karo. Phir medium. Last 10 minutes
-                me marked questions review karo. Negative marking ko dhyan me
-                rakh ke guess karo.
-              </p>
-            </div>
           </div>
         </Card>
       </PageShell>
