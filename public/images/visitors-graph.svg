@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" role="img" aria-label="Users visited history">
+  <!-- EDIT COUNTER: neeche wali "692" text ko apne naye count se badal dena -->
+  <rect width="900" height="620" fill="#ffffff"/>
+  <g font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" fill="#111111">
+    <circle cx="450" cy="34" r="14" fill="#000000"/>
+    <path d="M444 34 l4 5 l8 -10" stroke="#7ee787" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="474" y="42" font-size="26" font-weight="700">Users History</text>
+
+    <rect x="180" y="78" width="330" height="46" rx="8" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+    <rect x="196" y="94" width="14" height="14" fill="#e05d44"/>
+    <text x="220" y="107" font-size="18">ayush143-maker/prepare-x</text>
+
+    <path d="M150 80 C 148 200, 152 340, 150 520 C 300 522, 600 518, 830 520" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="60" y="300" font-size="18" transform="rotate(-90 60 300)">Users Visited</text>
+    <text x="470" y="562" font-size="18">Date</text>
+
+    <path d="M165 512 C 260 508, 330 500, 400 470 C 470 440, 520 380, 580 320 C 640 260, 700 200, 760 160 C 790 140, 810 130, 822 122" fill="none" stroke="#e05d44" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="822" cy="122" r="6" fill="#e05d44"/>
+    <text x="786" y="104" font-size="20" font-weight="700" fill="#e05d44">692</text>
+
+    <text x="660" y="600" font-size="14" fill="#666666">prepare-x • live arena counter</text>
+  </g>
+</svg>
