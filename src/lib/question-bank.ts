@@ -163,7 +163,7 @@ function normalizePack(raw: unknown): {
         durationMinutes:
           typeof rec.durationMinutes === "number" ? rec.durationMinutes : 60,
         totalQuestions:
-          typeof rec.totalQuestions === "number" ? rec.totalQuestions : 0,
+          typeof rec.totalQuestions === "number" ? rec.totalQuestions : 50,
         markingScheme: {
           correct:
             marking && typeof marking.correct === "number"
