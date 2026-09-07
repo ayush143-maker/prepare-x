@@ -2,7 +2,7 @@
 
 <img src="public/images/banner.svg" alt="CUET Prep Arena — animated banner" width="100%">
 
-# ⚡ CUET PREP ARENA
+# CUET PREP ARENA
 
 ### Practice that feels like the *real exam.*
 
@@ -22,54 +22,53 @@
 
 <br>
 
-> 🔥 **No signup. No fees. Sirf practice.**
-> 1200+ questions • 600 real-shift PYQs • 600 practice questions • +5/−1 marking • Topic-wise analytics • Exam ka pressure, browser me.
+> **No signup. No fees. Sirf practice.**
+> Timed quizzes · Real PYQ shift papers · Negative marking · Topic-wise analytics · Exam ka pressure, browser me.
 
 ---
 
 ## 🎯 What is this?
 
-**CUET Prep Arena** ek exam-simulator hai jo CUET UG ke **real pattern** pe practice karwata hai — same timing, same **+5 / −1** marking, same pressure. Koi login nahi, koi paywall nahi. Bas kholo, subject chuno, aur ladna shuru karo.
+CUET Prep Arena ek exam-simulator hai jo CUET UG ke **real pattern** pe practice karwata hai — same timing, same **+5 / −1** marking, same pressure. Koi login nahi, koi paywall nahi. Bas kholo, subject chuno, aur ladna shuru karo.
 
 ```bash
 git clone https://github.com/ayush143-maker/prepare-x.git
 cd prepare-x
 npm install
 npm run dev
-# → http://localhost:3000  ⚡
+# → http://localhost:3000
 ```
 
 ---
 
 ## 🔥 Feature Blitz
 
-| Feature | Kya karta hai |
+| Feature | What it does |
 |---|---|
-| ⏱️ **Exam Timer** | Real exam wala countdown, auto-submit ke saath |
-| 📄 **PYQ Mode** | 600 real shift-paper questions, paper-wise attempt |
-| 🎲 **Practice Mode** | 600 curated hard questions + subject/topic/difficulty filters |
-| ❌ **Negative Marking** | +5 / −1 — bilkul CUET wala drama |
-| 📊 **Analytics Dashboard** | Accuracy, weak topics, attempt history |
-| 🧭 **Mark for Review** | Real exam jaisi navigation palette |
-| 🌌 **Animated UI** | Moving grid, aurora glows, spotlight, shimmer — sab zinda hai |
-| 📱 **Responsive** | Phone se laptop tak, kahin bhi lao |
+| Exam Timer | Real exam wala countdown, auto-submit ke saath |
+| PYQ Mode | Real shift papers, paper-wise attempt |
+| Practice Mode | Subject + topic + difficulty filters ke saath custom quiz |
+| Negative Marking | +5 / −1 — bilkul CUET wala drama |
+| Analytics Dashboard | Accuracy, weak topics, attempt history |
+| Mark for Review | Real exam jaisi navigation palette |
+| Animated UI | Moving grid, aurora glows, spotlight, shimmer |
+| Responsive | Phone se laptop tak, kahin bhi lao |
 
 ---
 
-## 📚 The Arsenal (1200+ Questions)
+## 📚 The Arsenal
 
 | Subject | PYQ (Real Shifts) | Practice Bank | Total |
 |---|:---:|:---:|:---:|
-| 🇬 English | 100 | 100 | **200** |
-| ⚛️ Physics | 100 | 100 | **200** |
-| 🧪 Chemistry | 100 | 100 | **200** |
-| 📐 Mathematics | 100 | 100 | **200** |
-| 🧬 Biology | 100 | 100 | **200** |
-| 🧠 General Test | 100 | 100 | **200** |
+| English | 100 | 100 | **200** |
+| Physics | 100 | 100 | **200** |
+| Chemistry | 100 | 100 | **200** |
+| Mathematics | 100 | 100 | **200** |
+| Biology | 100 | 100 | **200** |
+| General Test | 100 | 100 | **200** |
 | **TOTAL** | **600** | **600** | **1200** |
 
-> 💡 **PYQ** = real shift papers se extracted (RC passages sirf ek baar store hote hain — `passageId` system).
-> **Practice** = curated hard-level bank jo weak areas ko target karta hai.
+> Har RC passage sirf **ek baar** store hota hai (`passageId` system) — questions usko reference karte hain. Isliye packs halki hain aur fast load hoti hain.
 
 ---
 
@@ -87,43 +86,36 @@ prepare-x/
 │   │   ├── quiz/           # question-card (passage box), timer, quiz-builder
 │   │   └── ui/             # buttons, badges, cards, empty-states
 │   ├── lib/
-│   │   ├── question-bank.ts   # ⭐ Pack loader — JSON packs ko normalize karke bank banata hai
+│   │   ├── question-bank.ts   # Pack loader — JSON packs ko normalize karke bank banata hai
 │   │   ├── constants.ts       # PYQ_PAPERS, marking scheme, options
 │   │   └── scoring.ts         # +5 / −1 engine
 │   ├── store/              # Zustand — live quiz state
 │   └── types/              # Question, PyqPaper, QuizConfig
 └── data/
     ├── questions/          # Practice bank (600) — subject-wise JSON
-    └── pyq/packs/          # ⭐ THE ARSENAL — PYQ packs (600), ek JSON per subject
+    └── pyq/packs/          # THE ARSENAL — PYQ packs (600), ek JSON per subject
 ```
 
 </details>
 
-**Pack System ka jaadu:** naya paper add karna ho to **sirf JSON edit karo — koi code change nahi.** `papers[]`, `passages[]`, `questions[]` me entry daalo, app khud paper card bana deta hai. Poori guide repo me hai: **`PREPARE-X-PROJECT-BIBLE.txt`** 📖
-
----
-
-## 🧠 Insights — The Story
-
-> Ye project **AI pair-programming** ka experiment tha — aur ye seekha:
-
-- 🤖 **~3.8M tokens** lage (input + output) — 1200 questions ka content, UI, debugging sab milake.
-- 🧩 **Multi-agent workflow:** ek AI ne questions + explanations banaye, dusre ne TypeScript wiring theek ki. Dono ki apni jagah hai.
-- 📄 **PDF → JSON pipeline:** real shift PDFs se RC passages + MCQs extract karke structured packs me convert kiya — passage dedup ke saath.
-- 🧠 **Context is king:** AI ko adhoora context doge to wo guess karega (aur guess = build error 😅). Poora context = clean code.
-- ⚠️ **Append-style edits JSON tod dete hain.** Comma miss = Vercel red. Isliye packs me hamesha full-file replace karo.
+Naya paper add karna ho to **sirf JSON edit karo — koi code change nahi.** Poori guide repo me hai: `PREPARE-X-PROJECT-BIBLE.txt`
 
 ---
 
 ## 👥 Users Visited
 
+<img src="public/images/visitors-graph.svg" alt="Users visited history" width="100%">
 
-<div align="center">
+---
 
-![Users Visited](https://img.shields.io/badge/👥_Users_Visited-693-6366f1?style=for-the-badge&logo=googleanalytics&logoColor=white)
+## 🧠 Insights — The Story
 
+- Real shift PDFs ko parse karke structured JSON packs me convert kiya gaya — RC passages ke saath.
+- Passages ek baar store hote hain, questions unhe reference karte hain — zero duplication.
+- Multi-agent AI workflow: ek AI ne content extract kiya, dusre ne TypeScript wiring theek ki.
+- Seekha ki context hi king hai — adhoora context matlab guesswork, aur guesswork matlab build errors.
 
-</div>
+> **3,800,000+ AI tokens** is arena ko pair-program karne me jale hain — har question extract hua, har build error se lada gaya, har pixel pe behas hui. Worth it.
 
 ---
 
@@ -142,10 +134,10 @@ prepare-x/
 
 ## 🤝 Contributing
 
-1. Fork karo ⭐
+1. Fork karo
 2. Branch banao (`git checkout -b feat/kuch-naya`)
 3. Commit karo (`git commit -m "feat: kuch naya"`)
-4. Push karo aur PR kholo 🚀
+4. Push karo aur PR kholo
 
 Questions add karne ho? `PREPARE-X-PROJECT-BIBLE.txt` padho — pack format, file targets, sab kuch wahan hai.
 
@@ -153,16 +145,19 @@ Questions add karne ho? `PREPARE-X-PROJECT-BIBLE.txt` padho — pack format, fil
 
 ## 📜 License
 
-MIT — jo karna hai karo, bas credit de dena. ❤️
+MIT — jo karna hai karo, bas credit de dena.
 
 ---
 
 <div align="center">
 
-### ⚡ Built with ❤️ + ☕ + 🤖 by [ayush143-maker](https://github.com/ayush143-maker)
+### Crafted with ❤️ by Ayush, with Qwen as the midnight co-pilot
 
-<sub>Pair-programmed with AI • 3.8M tokens • 0 regrets</sub>
+*Two minds, one terminal — one human who refused to sleep, and one AI that never does.*
+*Every line of this arena was argued over, broken, fixed, and finally loved into existence.*
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=6366f1,e879f9,22d3ee&height=120&section=footer&text=Practice%20Hard%20•%20Score%20Harder&fontAlign=center&fontAlignY=55&fontColor=ffffff&fontSize=26" alt="Practice Hard • Score Harder"/>
+**Ayush × Qwen** — because the best projects are never built alone.
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=6366f1,e879f9,22d3ee&height=120&section=footer&text=Practice%20Hard%20•%20Score%20Harder&fontAlign=center&fontAlignY=55&fontColor=ffffff&fontSize=26" alt="footer"/>
 
 </div>
