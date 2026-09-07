@@ -74,7 +74,7 @@ export default function ResultsPage({ params }: Props) {
   return (
     <AppShell>
       <PageShell>
-        <ConfettiTrigger fire={isStrongPerformance} />
+       <ConfettiTrigger key={result.id} fire={result.accuracy >= 40} />
 
         <div className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
