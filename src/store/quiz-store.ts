@@ -1,14 +1,12 @@
 import { create } from "zustand";
-
 import type { Question } from "@/types/question";
 import type { QuizConfig, QuizResult, QuizSession } from "@/types/quiz";
-
 import { getQuestions } from "@/lib/question-bank";
 import { createQuizSession } from "@/lib/quiz";
 import { evaluateAttempt } from "@/lib/scoring";
-
 import { useAnalyticsStore } from "./analytics-store";
 import { useSettingsStore } from "./settings-store";
+import { sfx } from "@/lib/sound"; // ✨ ADDED SOUND ENGINE IMPORT
 
 interface QuizState {
   session: QuizSession | null;
@@ -37,7 +35,6 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   startQuiz: (config) => {
     const questionCount = Math.max(config.questionCount || 10, 1);
-
     let questions = getQuestions({
       subject: config.subject,
       topic: config.topics?.[0],
@@ -56,7 +53,6 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     }
 
     const session = createQuizSession(config, questions);
-
     const timePerQuestion = Object.fromEntries(
       questions.map((question) => [question.id, 0])
     );
@@ -71,8 +67,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   },
 
   selectAnswer: (questionId, optionIndex) => {
+    sfx.select(); // ✨ ADDED: Play select sound when clicking an option
     const { session } = get();
-
     if (!session || session.status !== "active") {
       return;
     }
@@ -89,8 +85,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   },
 
   toggleMark: (questionId) => {
+    sfx.click(); // ✨ ADDED: Play click sound when marking for review
     const { session } = get();
-
     if (!session || session.status !== "active") {
       return;
     }
@@ -108,7 +104,6 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   nextQuestion: () => {
     const { session, questions } = get();
-
     if (!session || session.status !== "active") {
       return;
     }
@@ -127,7 +122,6 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   previousQuestion: () => {
     const { session } = get();
-
     if (!session || session.status !== "active") {
       return;
     }
@@ -146,7 +140,6 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   goToQuestion: (index) => {
     const { session, questions } = get();
-
     if (!session || session.status !== "active") {
       return;
     }
@@ -164,15 +157,12 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   tick: () => {
     const { session, questions } = get();
-
     if (!session || session.status !== "active") {
       return;
     }
-
     if (session.config.timeLimitSeconds <= 0) {
       return;
     }
-
     if (session.remainingSeconds <= 0) {
       return;
     }
@@ -181,12 +171,10 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
     set((state) => {
       const timePerQuestion = { ...state.timePerQuestion };
-
       if (currentQuestion) {
         timePerQuestion[currentQuestion.id] =
           (timePerQuestion[currentQuestion.id] ?? 0) + 1;
       }
-
       return {
         timePerQuestion,
         session: {
@@ -197,13 +185,13 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     });
 
     const updatedSession = get().session;
-
     if (updatedSession?.remainingSeconds === 0) {
       const { autoSubmit } = useSettingsStore.getState();
-
       if (autoSubmit) {
         get().submitQuiz();
       }
+    } else if (updatedSession && updatedSession.remainingSeconds <= 10 && updatedSession.remainingSeconds > 0) {
+      sfx.tick(); // ✨ ADDED: Play ticking sound for the last 10 seconds
     }
   },
 
@@ -225,6 +213,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       answers: session.answers,
       timePerQuestion,
     });
+
+    sfx.submit(); // ✨ ADDED: Play submit fanfare when quiz ends
 
     set({
       result,
