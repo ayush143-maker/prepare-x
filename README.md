@@ -157,7 +157,7 @@ MIT — jo karna hai karo, bas credit de dena.
 
 <div align="center">
 
-### Crafted by Ayush, in collaboration with Qwen AI
+### Crafted with ❤️ by Ayush, with Qwen!
 
 *Built with Next.js, TypeScript, and multi-agent AI workflows.*
 
