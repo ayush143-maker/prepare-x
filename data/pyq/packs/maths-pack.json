@@ -1,6 +1,7 @@
 {
   "papers": [
     { "id": "pack-maths-2025", "year": 2025, "title": "CUET UG 2025 Mathematics", "subject": "Mathematics", "section": "domain", "durationMinutes": 60, "totalQuestions": 50, "markingScheme": { "correct": 5, "incorrect": -1 } }
+  { "id": "pack-maths-2026", "year": 2026, "title": "CUET UG 2026 Mathematics", "subject": "Mathematics", "section": "domain", "durationMinutes": 60, "totalQuestions": 50, "markingScheme": { "correct": 5, "incorrect": -1 } }
   ],
   "passages": [],
   "questions": [
@@ -54,9 +55,7 @@
     { "id": "math25_48", "section": "domain", "subject": "Mathematics", "topic": "Matrices", "difficulty": "hard", "question": "The trace of A = [1 2 3; 0 4 5; 0 0 6] is:", "options": ["11", "10", "21", "6"], "correctIndex": 0, "explanation": "Trace = 1 + 4 + 6 = 11.", "paperId": "pack-maths-2025", "year": 2025, "source": "pyq" },
     { "id": "math25_49", "section": "domain", "subject": "Mathematics", "topic": "Combinatorics", "difficulty": "hard", "question": "The number of non-negative integer solutions of x₁ + x₂ + x₃ = 7 is:", "options": ["36", "21", "28", "45"], "correctIndex": 0, "explanation": "C(7+3−1, 3−1) = C(9,2) = 36.", "paperId": "pack-maths-2025", "year": 2025, "source": "pyq" },
     { "id": "math25_50", "section": "domain", "subject": "Mathematics", "topic": "Probability", "difficulty": "hard", "question": "Three fair coins are tossed. P(at least two heads) =", "options": ["1/2", "3/8", "1/4", "7/8"], "correctIndex": 0, "explanation": "(3 + 1)/8 = 4/8 = 1/2.", "paperId": "pack-maths-2025", "year": 2025, "source": "pyq" }
-  ]
-}
-,
+    ,
 { "id": "math26_01", "section": "domain", "subject": "Mathematics", "topic": "Applied Mathematics", "difficulty": "medium", "question": "A machine costing ₹2,00,000 has a useful life of 5 years and estimated scrap value ₹20,000. By straight line method, the annual depreciation is:", "options": ["₹18,000", "₹25,000", "₹36,000", "₹40,000"], "correctIndex": 2, "explanation": "(200000 − 20000)/5 = 36000.", "paperId": "pack-maths-2026", "year": 2026, "source": "pyq" },
 { "id": "math26_02", "section": "domain", "subject": "Mathematics", "topic": "Applied Mathematics", "difficulty": "medium", "question": "The break-even point is the level of production where:", "options": ["revenue from sales is less than the cost of production and marketing", "revenue from sales is equal to the cost of production and marketing", "revenue from sales is greater than the cost of production and marketing", "sum of revenue and cost is zero"], "correctIndex": 1, "explanation": "Break-even par revenue = cost.", "paperId": "pack-maths-2026", "year": 2026, "source": "pyq" },
 { "id": "math26_03", "section": "domain", "subject": "Mathematics", "topic": "Statistics", "difficulty": "hard", "question": "For two samples of sizes 4 and 5, the sample statistic t follows t-distribution with m degrees of freedom. Then m is:", "options": ["5", "6", "7", "9"], "correctIndex": 2, "explanation": "m = n₁ + n₂ − 2 = 4 + 5 − 2 = 7.", "paperId": "pack-maths-2026", "year": 2026, "source": "pyq" },
@@ -107,3 +106,5 @@
 { "id": "math26_48", "section": "domain", "subject": "Mathematics", "topic": "Inverse Trigonometry", "difficulty": "hard", "question": "tan⁻¹(1) + tan⁻¹(2) + tan⁻¹(3) =", "options": ["π", "π/2", "π/4", "3π/4"], "correctIndex": 0, "explanation": "Known identity: sum = π.", "paperId": "pack-maths-2026", "year": 2026, "source": "pyq" },
 { "id": "math26_49", "section": "domain", "subject": "Mathematics", "topic": "Linear Programming", "difficulty": "hard", "question": "Maximize Z = 5x + 3y subject to x + 2y ≤ 8, 3x + y ≤ 9, x, y ≥ 0. Maximum Z =", "options": ["19", "15", "12", "10"], "correctIndex": 0, "explanation": "Vertex (2, 3) par Z = 10 + 9 = 19.", "paperId": "pack-maths-2026", "year": 2026, "source": "pyq" },
 { "id": "math26_50", "section": "domain", "subject": "Mathematics", "topic": "Probability", "difficulty": "hard", "question": "If P(A) = 1/2, P(B) = 1/3 and P(A|B) = 1/4, then P(B|A) =", "options": ["1/6", "1/12", "1/3", "1/2"], "correctIndex": 0, "explanation": "P(A∩B) = (1/4)(1/3) = 1/12; P(B|A) = (1/12)/(1/2) = 1/6.", "paperId": "pack-maths-2026", "year": 2026, "source": "pyq" }
+  ]
+}
